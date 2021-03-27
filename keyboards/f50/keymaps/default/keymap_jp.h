@@ -147,9 +147,6 @@
 #define JP_SFT KC_LSFT
 #define JP_GUI KC_LGUI
 
-#define JP_HENK KC_HENK
-#define JP_MHEN KC_MHEN
-
 #define JP_NMLK KC_NLCK
 #define JP_NLCK KC_NLCK
 #define JP_SCLK KC_SLCK     // scroll lock
