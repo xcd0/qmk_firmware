@@ -21,7 +21,6 @@ enum layer_names {
 	_YSTRP,
 	_NUMBER,
 	_ARROW,
-	_MOUSE,
 	_SYMBOL
 };
 
@@ -31,7 +30,6 @@ enum custom_keycodes {
 	YSTRP,
 	NUMBER,
 	ARROW,
-	MOUSE,
 	SYMBOL
 };
 
@@ -44,12 +42,11 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
-		case NUMBER: if (record->event.pressed) { layer_on(_NUMBER); } else { layer_off(_NUMBER); }break;
-		case ARROW: if (record->event.pressed) { layer_on(_ARROW); } else { layer_off(_ARROW); } break;
-		case MOUSE: if (record->event.pressed) { layer_on(_MOUSE); } else { layer_off(_MOUSE); } break;
-		case SYMBOL: if (record->event.pressed) { layer_on(_SYMBOL); } else { layer_off(_SYMBOL); } break;
 		case QWERTY: if (record->event.pressed) { persistent_default_layer_set(1UL<<_QWERTY); } break;
 		case YSTRP: if (record->event.pressed) { persistent_default_layer_set(1UL<<_YSTRP); } break;
+		case NUMBER: if (record->event.pressed) { layer_on(_NUMBER); } else { layer_off(_NUMBER); }break;
+		case ARROW: if (record->event.pressed) { layer_on(_ARROW); } else { layer_off(_ARROW); } break;
+		case SYMBOL: if (record->event.pressed) { layer_on(_SYMBOL); } else { layer_off(_SYMBOL); } break;
 	}
 	return true;
 }

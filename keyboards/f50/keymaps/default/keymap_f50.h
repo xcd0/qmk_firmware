@@ -18,58 +18,49 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT(
-			JP_Q,    JP_W,    JP_E,    JP_R,    JP_T,       /**/    JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,    \
-			JP_A,    JP_S,    JP_D,    JP_F,    JP_G,       /**/    JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN, \
-			JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,       /**/    JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH, \
+			JP_Q,    JP_W,    JP_E,    JP_R,    JP_T,       /**/ JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,       \
+			JP_A,    JP_S,    JP_D,    JP_F,    JP_G,       /**/ JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN,    \
+			JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,       /**/ JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
 															/**/                                                 \
-					 NUMBER,  SYMBOL,                    	/**/          JP_LALT, JP_LGUI,              \
-			JP_HOME, JP_LCTL, JP_SPC,  JP_4,    			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
-			JP_1,    MOUSE,   ARROW,   JP_MHEN, 			/**/ JP_HENK,    JP_6,    JP_7,    JP_8              \
+					 JP_ESC,  JP_TAB,						/**/          JP_LALT, JP_LGUI,                      \
+			JP_HOME, JP_LCTL, JP_LSFT, JP_SPC,  			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
+			ARROW,   NUMBER,  SYMBOL,  JP_MHEN, 			/**/ JP_HENK, JP_INS,  JP_7,    JP_8                 \
 	),
 	[_YSTRP] = LAYOUT(
-			JP_Q,    JP_W,    JP_D,    JP_F,    JP_G,       /**/    JP_Y,    JP_S,    JP_T,    JP_R,    JP_P,    \
-			JP_A,    JP_O,    JP_E,    JP_U,    JP_I,       /**/    JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN, \
-			JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,       /**/    JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH, \
+			JP_Q,    JP_W,    JP_D,    JP_F,    JP_G,       /**/ JP_Y,    JP_S,    JP_T,    JP_R,    JP_P,       \
+			JP_A,    JP_O,    JP_E,    JP_U,    JP_I,       /**/ JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN,    \
+			JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,       /**/ JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
 															/**/                                                 \
-					 NUMBER,  SYMBOL,                    	/**/          JP_LALT, JP_LGUI,              \
-			JP_HOME, JP_LCTL, JP_SPC,  JP_4,    			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
-			JP_1,    MOUSE,   ARROW,   JP_MHEN, 			/**/ JP_HENK,    JP_6,    JP_7,    JP_8              \
+					 JP_ESC,  JP_TAB,						/**/          JP_LALT, JP_LGUI,                      \
+			JP_HOME, JP_LCTL, JP_LSFT, JP_SPC,  			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
+			ARROW,   NUMBER,  SYMBOL,  JP_MHEN, 			/**/ JP_HENK, JP_INS,  JP_7,    JP_8                 \
 	),
 	[_NUMBER] = LAYOUT(
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, JP_7, JP_8, JP_9, XXXXXXX,             \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, JP_4, JP_5, JP_6, XXXXXXX,             \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ JP_0,    JP_1, JP_2, JP_3, XXXXXXX,             \
+			JP_F1,   JP_F2,   JP_F3,   JP_F4,   JP_F5,  	/**/ JP_SLSH, JP_7,    JP_8,    JP_9,    JP_ASTR,    \
+			JP_F6,   JP_F7,   JP_F8,   JP_F9,   JP_F10, 	/**/ JP_MINS, JP_4,    JP_5,    JP_6,    JP_PLUS,    \
+			JP_F11,  JP_F12,  JP_F13,  JP_F14,  JP_F15, 	/**/ JP_0,    JP_1,    JP_2,    JP_3,    JP_EQL,     \
 															/**/                                                 \
-					 _______, XXXXXXX, 						/**/ 		  XXXXXXX, XXXXXXX,                      \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX              \
+					 JP_ESC,  JP_TAB,						/**/          JP_LALT, JP_LGUI,                      \
+			JP_HOME, JP_LCTL, JP_LSFT, JP_SPC,  			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
+			ARROW,   _______, SYMBOL,  JP_MHEN, 			/**/ JP_HENK, JP_INS,  JP_7,    JP_8                 \
 	),
 	[_ARROW] = LAYOUT(
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, XXXXXXX, \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-															/**/                                              \
-					 XXXXXXX, XXXXXXX, 						/**/ 		  XXXXXXX, XXXXXXX,                   \
-			XXXXXXX, XXXXXXX, XXXXXXX, _______, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX           \
-	),
-	[_MOUSE] = LAYOUT(
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ _______, JP_BTN1, JP_BTN2, JP_BTN3, JP_WH_U, \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ JP_MS_L, JP_MS_D, JP_MS_U, JP_MS_R, JP_WH_D, \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-															/**/                                              \
-					 XXXXXXX, XXXXXXX, 						/**/ 		  XXXXXXX, XXXXXXX,                   \
-			XXXXXXX, XXXXXXX, XXXXXXX, _______, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX           \
+			XXXXXXX, JP_BTN1, JP_BTN2, JP_BTN3, JP_WH_U,	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
+			JP_MS_L, JP_MS_D, JP_MS_U, JP_MS_R, JP_WH_D,	/**/ JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, XXXXXXX,    \
+			XXXXXXX, XXXXXXX, XXXXXXX, YSTRP,    QWERTY,	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
+															/**/                                                 \
+					 JP_ESC,  JP_TAB,						/**/          JP_LALT, JP_LGUI,                      \
+			JP_HOME, JP_LCTL, JP_LSFT, JP_SPC,  			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
+			_______, NUMBER,  SYMBOL,  JP_MHEN, 			/**/ JP_HENK, JP_INS,  JP_7,    JP_8                 \
 	),
 	[_SYMBOL] = LAYOUT(
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 	/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-															/**/                                              \
-					 XXXXXXX, _______, 						/**/ 		  XXXXXXX, XXXXXXX,                   \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          \
-			XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 			/**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX           \
+			JP_TILD, JP_UNDS, JP_DQT,  JP_QUOT, JP_GRV, 	/**/ JP_LPRN, JP_LT,   JP_LCBR, JP_LBRC, JP_AT,      \
+			JP_PLUS, JP_MINS, JP_AMPR, JP_EQL,  JP_DLR, 	/**/ JP_RPRN, JP_GT,   JP_RCBR, JP_RBRC, JP_COLN,    \
+			XXXXXXX, JP_EXLM, JP_QUES, JP_HASH, JP_PERC, 	/**/ XXXXXXX, JP_AMPR, JP_PIPE, JP_CIRC, JP_BKSL,    \
+															/**/                                                 \
+					 JP_ESC,  JP_TAB,						/**/          JP_LALT, JP_LGUI,                      \
+			JP_HOME, JP_LCTL, JP_LSFT, JP_SPC,  			/**/ JP_BSPC, JP_ENT,  JP_DEL,  JP_END,              \
+			ARROW,   NUMBER,  _______, JP_MHEN, 			/**/ JP_HENK, JP_INS,  JP_7,    JP_8                 \
 	)
 };
 

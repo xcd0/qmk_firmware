@@ -2,6 +2,8 @@
 
 ![f50](imgur.com image replace me!)
 
+![f50-schematic](https://imgur.com/V4NwnPw)
+
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [xcd0](https://github.com/yourusername)
