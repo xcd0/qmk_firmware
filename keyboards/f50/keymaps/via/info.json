@@ -1,7 +1,7 @@
 {
   "name": "f50",
-  "vendorId": "0xF501",
-  "productId": "0xF501",
+  "vendorId": "0xF502",
+  "productId": "0xF500",
   "lighting": "none",
   "matrix": {
     "rows": 12,
