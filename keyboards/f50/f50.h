@@ -17,7 +17,6 @@
 #pragma once
 
 #include "quantum.h"
-
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -30,18 +29,18 @@
 #define NOP KC_NO
 
 #define LAYOUT( \
-  L04, L03, L02, L01, L00,                                  R00, R01, R02, R03, R04, \
-  L14, L13, L12, L11, L10,                                  R10, R11, R12, R13, R14, \
-  L24, L23, L22, L21, L20,                                  R20, R21, R22, R23, R24, \
-                           L32, L31,              R31, R32,                          \
-                      L43, L42, L41, L40,    R40, R41, R42, R43,                     \
-                      L53, L52, L51, L50,    R50, R51, R52, R53                      \
+ L00, L01, L02, L03, L04,                                   R00, R01, R02, R03, R04, \
+ L10, L11, L12, L13, L14,                                   R10, R11, R12, R13, R14, \
+ L20, L21, L22, L23, L24,                                   R20, R21, R22, R23, R24, \
+                           L32, L33,              R31, R32,                          \
+                      L41, L42, L43, L44,    R40, R41, R42, R43,                     \
+                      L51, L52, L53, L54,    R50, R51, R52, R53                      \
   ) \
   { \
     { L00, L01, L02, L03, L04 }, \
     { L10, L11, L12, L13, L14 }, \
     { L20, L21, L22, L23, L24 }, \
-    { NOP, L31, L32, NOP, NOP }, \
+    { NOP, NOP, L32, L33, NOP }, \
     { NOP, L41, L42, L43, L44 }, \
     { NOP, L51, L52, L53, L54 }, \
     { R00, R01, R02, R03, R04 }, \

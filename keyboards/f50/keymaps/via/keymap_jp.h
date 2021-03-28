@@ -78,16 +78,6 @@
 #define JP_GT   KC_GT   // >
 #define JP_QUES KC_QUES // ?
 
-#define JP_1 KC_1
-#define JP_2 KC_2
-#define JP_3 KC_3
-#define JP_4 KC_4
-#define JP_5 KC_5
-#define JP_6 KC_6
-#define JP_7 KC_7
-#define JP_8 KC_8
-#define JP_9 KC_9
-#define JP_0 KC_0
 #define JP_Q KC_Q
 #define JP_W KC_W
 #define JP_E KC_E
@@ -114,6 +104,42 @@
 #define JP_O KC_O
 #define JP_P KC_P
 #define JP_L KC_L
+
+#define JP_1 KC_1
+#define JP_2 KC_2
+#define JP_3 KC_3
+#define JP_4 KC_4
+#define JP_5 KC_5
+#define JP_6 KC_6
+#define JP_7 KC_7
+#define JP_8 KC_8
+#define JP_9 KC_9
+#define JP_0 KC_0
+
+#define JP_F1 KC_F1
+#define JP_F2 KC_F2
+#define JP_F3 KC_F3
+#define JP_F4 KC_F4
+#define JP_F5 KC_F5
+#define JP_F6 KC_F6
+#define JP_F7 KC_F7
+#define JP_F8 KC_F8
+#define JP_F9 KC_F9
+#define JP_F10 KC_F10
+#define JP_F11 KC_F11
+#define JP_F12 KC_F12
+#define JP_F13 KC_F13
+#define JP_F14 KC_F14
+#define JP_F15 KC_F15
+#define JP_F16 KC_F16
+#define JP_F17 KC_F17
+#define JP_F18 KC_F18
+#define JP_F19 KC_F19
+#define JP_F20 KC_F20
+#define JP_F21 KC_F21
+#define JP_F22 KC_F22
+#define JP_F23 KC_F23
+#define JP_F24 KC_F24
 
 #define JP_BTN1 KC_BTN1
 #define JP_BTN2 KC_BTN2
@@ -142,10 +168,11 @@
 #define JP_LCTL KC_LCTL
 #define JP_LSFT KC_LSFT
 #define JP_LGUI KC_LGUI
-#define JP_ALT KC_LALT
-#define JP_CTL KC_LCTL
-#define JP_SFT KC_LSFT
-#define JP_GUI KC_LGUI
+
+#define JP_RALT KC_RALT
+#define JP_RCTL KC_RCTL
+#define JP_RSFT KC_RSFT
+#define JP_RGUI KC_RGUI
 
 #define JP_NMLK KC_NLCK
 #define JP_NLCK KC_NLCK
