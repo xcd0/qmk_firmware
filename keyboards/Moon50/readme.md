@@ -2,6 +2,8 @@
 
 ![Moon50](imgur.com image replace me!)
 
+![](https://imgur.com/a0JmKbc)
+
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [xcd0](https://github.com/yourusername)
