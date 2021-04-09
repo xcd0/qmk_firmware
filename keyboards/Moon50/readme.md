@@ -4,18 +4,11 @@
 
 ![](https://imgur.com/a0JmKbc)
 
-*A short description of the keyboard/project*
+	make Moon50:via
 
-* Keyboard Maintainer: [xcd0](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+## VIA
 
-Make example for this keyboard (after setting up your build environment):
+1. DESIGN. Load `keymap_moon50_via_setting.json`.
 
-    make Moon50:default
+2. CONFIGURE > SAVE + LOAD. Load `keymap_moon50_via_output.json`
 
-Flashing example for this keyboard:
-
-    make Moon50:default:flash
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
