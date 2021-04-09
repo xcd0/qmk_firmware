@@ -2,7 +2,7 @@
 
 ![Moon50](imgur.com image replace me!)
 
-![](https://imgur.com/a0JmKbc)
+![](https://i.imgur.com/a0JmKbc.png)
 
 	make Moon50:via
 
