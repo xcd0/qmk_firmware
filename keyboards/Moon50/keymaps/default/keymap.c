@@ -49,7 +49,11 @@ enum custom_keycodes {
 	IC_Lstring01, IC_Lstring02, IC_Lstring03,
 	IC_Lstring04, IC_Lstring05, IC_Lstring06,
 	IC_keyUP, IC_keyDN,
-	IC_MAX
+	IC_MAX,
+	MI_NOTEMIN,
+	MI_NOTE001 = MI_NOTEMIN, MI_NOTE002, MI_NOTE003, MI_NOTE004, MI_NOTE005, MI_NOTE006,
+	MI_NOTE007, MI_NOTE008, MI_NOTE009, MI_NOTE010, MI_NOTE011, MI_NOTE012,
+	MI_NOTEMAX
 };
 
 #include "keymap_moon50.h"
@@ -59,7 +63,8 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-int layer_toggle_status = 0; // 0:通常 1:記号 2:数字 3:MIDI 4:IC
+uint8_t layer_toggle_status = 0; // 0:通常 1:記号 2:数字 3:MIDI 4:IC
+uint8_t midi_channel = 0;        // MIDIのチャンネル
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -102,15 +107,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					layer_toggle_status = 0; layer_off(_IC);
 				}
 			break;
+		// 参考 : https://rephtone.com/electronics/helix-midicustom/
+		case MI_NOTE001 ... MI_NOTE012: // MIDI
+			uint8_t note = keycode - MI_NOTEMIN;
+			midi_send_noteon(&midi_device, midi_channel, note, record->event.pressed ? 127 : 0);
+			return false;
+		case IC_Lkey01 ... IC_Lkey12:
+			uint8_t note = keycode - IC_Lkey01;
+			midi_send_noteon(&midi_device, midi_channel, note, record->event.pressed ? 127 : 0);
+			return false;
 		default:
 			if( keycode >= IC_Lkey01 && keycode < IC_MAX){
 				if(keycode <= IC_Lkey12){
 					// コード表からとってくる
 				}
 
-	IC_Lkey01, IC_Lkey02, IC_Lkey03, IC_Lkey04,
-	IC_Lkey05, IC_Lkey06, IC_Lkey07, IC_Lkey08,
-	IC_Lkey09, IC_Lkey10, IC_Lkey11, IC_Lkey12,
 	IC_MUTE, IC_ALL,
 	IC_REVERSE, IC_SHARP,
 	IC_MINER, IC_MINER7,
