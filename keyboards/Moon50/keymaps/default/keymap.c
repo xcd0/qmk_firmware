@@ -15,6 +15,14 @@
  */
 #include QMK_KEYBOARD_H
 
+#include "icDefineCode.h"
+
+#include "print.h"
+// print("string")          : シンプルな文字列を出力します
+// uprintf("%s string", var): フォーマットされた文字列を出力します
+// dprint("string")         : デバッグモードが有効な場合のみ、シンプルな文字列を出力します
+// dprintf("%s string", var): デバッグモードが有効な場合のみ、フォーマットされた文字列を出力します
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
 	_QWERTY,
@@ -35,16 +43,16 @@ enum custom_keycodes {
 	ARROW,
 	MIDI,
 	IC,
-	MI_NOTEMIN,
-	MI_NOTE001 = MI_NOTEMIN, MI_NOTE002, MI_NOTE003, MI_NOTE004, MI_NOTE005, MI_NOTE006,
-	MI_NOTE007, MI_NOTE008, MI_NOTE009, MI_NOTE010, MI_NOTE011, MI_NOTE012,
-	MI_NOTE013, MI_NOTE014, MI_NOTE015, MI_NOTE016, MI_NOTE017, MI_NOTE018,
-   	MI_NOTE019, MI_NOTE020, MI_NOTE021, MI_NOTE022, MI_NOTE023, MI_NOTE024,
-   	MI_NOTE025, MI_NOTE026, MI_NOTE027, MI_NOTE028, MI_NOTE029, MI_NOTE030,
-   	MI_NOTE031, MI_NOTE032, MI_NOTE033, MI_NOTE034, MI_NOTE035, MI_NOTE036,
-	MI_NOTEMAX,
+	MI_MIN,
+	MI_0001 = MI_MIN, MI_0002, MI_0003, MI_0004, MI_0005, MI_0006,
+	MI_0007, MI_0008, MI_0009, MI_0010, MI_0011, MI_0012,
+	MI_0013, MI_0014, MI_0015, MI_0016, MI_0017, MI_0018,
+	MI_0019, MI_0020, MI_0021, MI_0022, MI_0023, MI_0024,
+	MI_0025, MI_0026, MI_0027, MI_0028, MI_0029, MI_0030,
+	MI_0031, MI_0032, MI_0033, MI_0034, MI_0035, MI_0036,
+	MI_MAX,
 	IC_MIN,
-	IC_key01 = IC_MIN, IC_key02, IC_key03, IC_key04, IC_key05, IC_key06, IC_key07, IC_key08, IC_key09, IC_key10, IC_key11, IC_key12,
+	IC_RESET,
 	IC_MUTE, IC_REVERSE,
 	IC_Cn_MEJAR, IC_Cn_MINOR, IC_Cn_7, IC_Cn_MEJAR7, IC_Cn_MINOR7, IC_Cn_MINORMEJOR7, IC_Cn_DIMINISH, IC_Cn_AUGUMENT, IC_Cn_SUSTAIN,
 	IC_Cs_MEJAR, IC_Cs_MINOR, IC_Cs_7, IC_Cs_MEJAR7, IC_Cs_MINOR7, IC_Cs_MINORMEJOR7, IC_Cs_DIMINISH, IC_Cs_AUGUMENT, IC_Cs_SUSTAIN,
@@ -59,27 +67,58 @@ enum custom_keycodes {
 	IC_As_MEJAR, IC_As_MINOR, IC_As_7, IC_As_MEJAR7, IC_As_MINOR7, IC_As_MINORMEJOR7, IC_As_DIMINISH, IC_As_AUGUMENT, IC_As_SUSTAIN,
 	IC_Bn_MEJAR, IC_Bn_MINOR, IC_Bn_7, IC_Bn_MEJAR7, IC_Bn_MINOR7, IC_Bn_MINORMEJOR7, IC_Bn_DIMINISH, IC_Bn_AUGUMENT, IC_Bn_SUSTAIN,
 	IC_string01, IC_string02, IC_string03, IC_string04, IC_string05, IC_string06,
-	IC_keyUP, IC_keyDN,
-	IC_CODE_PLAY,
+	IC_OCTAVE_UP, IC_OCTAVE_DN, IC_NOTE_UP, IC_NOTE_DN,
+	IC_PLAY_CODE,
 	IC_MAX
 };
 
 #include "keymap_moon50.h"
+extern MidiDevice midi_device;
+uint8_t midi_channel = 0;  // MIDIのチャンネル
+uint8_t midiOffset = 39;   // MI_0_001を39(D#2)にする
+IcData icData = { false, 0, 1 };
+
+void ResetIC(void);
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
-// uint8_t layer_toggle_status = 0; // 0:通常 1:記号 2:数字 3:MIDI 4:IC
-// uint8_t midi_channel = 0;        // MIDIのチャンネル
+void keyboard_pre_init_user(void) { // Call the keyboard pre init code.
+	ResetIC();
+}
 
-uint8_t midiOffset = 39; // MI_NOTE_001を39(D#2)にする
+void ResetIC(void){
+	{ // なぜかグローバル変数な配列の初期化ができないのでここで初期化
+		uint8_t ic[9][6] = {
+		  { 0, 4, 7, 12, 16, 19 }, // 0 Mejar
+		  { 0, 3, 7, 12, 15, 19 }, // 1 Minor
+		  { 0, 4, 7, 10, 12, 16 }, // 2 Sevens
+		  { 0, 4, 7, 11, 12, 16 }, // 3 MejarSevens
+		  { 0, 3, 7, 10, 12, 15 }, // 4 MinorSevens
+		  { 0, 3, 7, 11, 12, 15 }, // 5 MinorMejorSevens
+		  { 0, 3, 6, 12, 15, 18 }, // 6 Diminish
+		  { 0, 4, 8, 12, 16, 20 }, // 7 Augument
+		  { 0, 5, 7, 12, 17, 19 }  // 8 Sustain
+		};
+		memcpy( icData.icCodeOffsetArray,ic,sizeof(ic) );
+	}
 
-#include "icDefineCode.h"
-IcData icData;
-//icData.icCodeOffset[0] -> Mejorコード4音のオフセット値
+	icData.reverse           = false;             // insta code の ~ 相当
+	icData.baseNote          = 0;                 // 音 icDefineCode.hのenum note
+	icData.octaveOffset      = 1;                 // オクターブオフセット  min=-1 max=9
+	icData.noteOffset        = 0;                 // 半音単位でのオフセット いわゆる変調
+	icData.codeType          = 0;                 // Majorとか
 
+	// icData.icCodeOffsetArrayのデバッグ
+	//for(int i = 0; i < 9; i++){
+	//	for(int j = 0; j < 6; j++){
+	//		uprintf("%u,", icData.icCodeOffsetArray[i][j]);
+	//	}
+	//	uprintf("\n");
+	//}
+}
 
 // 単音を鳴らす
 void PlayNote(
@@ -87,23 +126,70 @@ void PlayNote(
 	uint8_t midi_channel, // midi のチャンネル番号
 	bool    pressed       // キーが押されているか
 ){
-	if(note >= 0 && note <= 127) midi_send_noteon(&midi_device, midi_channel, note, pressed ? 127 : 0);
+	if(note >= 0 && note <= 127){ midi_send_noteon(&midi_device, midi_channel, note, pressed ? 127 : 0); }
+	uprintf("n%u;", note);
+}
+
+void PlayStrings(
+	IcData*      icData,       // 設定
+	uint8_t      stringNum,    // 弦番号 (低い音から0)
+	uint8_t      lowestNote,   // 和音で一番低い音
+	uint8_t      midi_channel, // midiのチャンネル
+	keyrecord_t* record        // キー入力状態
+){
+	uprintf("s%d(o%d):", stringNum, icData->icCodeOffsetArray[icData->codeType][stringNum]);
+	PlayNote( lowestNote + icData->icCodeOffsetArray[icData->codeType][stringNum], midi_channel, record->event.pressed );
 }
 
 // 設定された和音を鳴らす
 void PlayCode(
-	IcData* icData,                 // 設定
-	uint8_t      codeNote,          // 鳴らしたい和音の一番低い音
-	uint8_t      icCodeNoteOffset,  // 半音単位でのオフセット いわゆる変調
-	uint8_t*     icCodeOffsetArray, // 和音の個々の単音についてのオフセット値の配列へのポインタ
-	uint8_t      midi_channel,      // midiのチャンネル
-	keyrecord_t* record             // キー入力状態
+	IcData*      icData,       // 設定
+	uint8_t      midi_channel, // midiのチャンネル
+	keyrecord_t* record        // キー入力状態
 ){
-	uint8_t lowestNote = codeNote + icCodeNoteOffset;
-	for(uint8_t i = 0; i < 6; i++){ if(codeArray[i] != -1) PlayNote( lowestNote + codeArray[i], midi_channel, record->event.pressed ); }
+	uprintf("bn%u,oo%d,no%d,ct%u,", icData->baseNote, icData->octaveOffset, icData->noteOffset, icData->codeType);
+	uprintf("(%u %u %u %u %u %u)"
+, icData->icCodeOffsetArray[icData->codeType][0]
+, icData->icCodeOffsetArray[icData->codeType][1]
+, icData->icCodeOffsetArray[icData->codeType][2]
+, icData->icCodeOffsetArray[icData->codeType][3]
+, icData->icCodeOffsetArray[icData->codeType][4]
+, icData->icCodeOffsetArray[icData->codeType][5]);
+	switch(icData->baseNote){
+		case note_Cn: uprintf("%s ", "Cn"); break;
+		case note_Cs: uprintf("%s ", "Cs"); break;
+		case note_Dn: uprintf("%s ", "Dn"); break;
+		case note_Ds: uprintf("%s ", "Ds"); break;
+		case note_En: uprintf("%s ", "En"); break;
+		case note_Fn: uprintf("%s ", "Fn"); break;
+		case note_Fs: uprintf("%s ", "Fs"); break;
+		case note_Gn: uprintf("%s ", "Gn"); break;
+		case note_Gs: uprintf("%s ", "Gs"); break;
+		case note_An: uprintf("%s ", "An"); break;
+		case note_As: uprintf("%s ", "As"); break;
+		case note_Bn: uprintf("%s ", "Bn"); break;
+	}
+
+	switch(icData->codeType){
+		case MEJAR: uprintf("%s ", "M"); break;
+		case MINOR: uprintf("%s ", "m"); break;
+		case SEVENS: uprintf("%s ", "7"); break;
+		case MEJARSEVENS: uprintf("%s ", "M7"); break;
+		case MINORSEVENS: uprintf("%s ", "m7"); break;
+		case MINORMEJORSEVENS: uprintf("%s ", "Mm7"); break;
+		case DIMINISH: uprintf("%s ", "dim"); break;
+		case AUGUMENT: uprintf("%s ", "aug"); break;
+		case SUSTAIN: uprintf("%s ", "sus"); break;
+	}
+
+	for(uint8_t i = 0; i < 6; i++){
+		PlayStrings( icData, i, icData->baseNote + icData->octaveOffset * 12 + 12 + icData->noteOffset, midi_channel, record);
+	}
+	uprintf("\n");
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	int tmpNoteNum = keycode - MI_MIN + midiOffset;
 	switch (keycode) {
 		//case QWERTY: if (record->event.pressed) { persistent_default_layer_set(1UL<<_QWERTY); } break;
 		//case YSTRP: if (record->event.pressed) { persistent_default_layer_set(1UL<<_YSTRP); } break;
@@ -147,31 +233,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// }}}
 		//// MIDI {{{
 		// 参考 : https://rephtone.com/electronics/helix-midicustom/
-		case MI_NOTE001 ... MI_NOTE012: // MIDI
-			uint8_t note = keycode - MI_NOTEMIN + midiOffset;
-			midi_send_noteon(&midi_device, midi_channel, note, record->event.pressed ? 127 : 0);
-			return false;
+		case MI_0001 ... MI_0036: // MIDI
+			if(tmpNoteNum >= 0 && tmpNoteNum <= 127){
+				midi_send_noteon(&midi_device, midi_channel, tmpNoteNum, record->event.pressed ? 127 : 0);
+			}
+			break;
 		// }}}
 		// IC {{{
-		case IC_MUTE: break;
-		case IC_REVERSE:                    icData->reverse = record->event.pressed; break;
-		case IC_keyUP:                      OffsetCodeBase( &icData, 1 ); break;
-		case IC_keyDN:                      OffsetCodeBase( &icData, -1); break;
-		case IC_Cn_MEJAR ... IC_Cn_SUSTAIN: SetCode( &icData, note_Cn, noteOffset, keycode - IC_Cn_MEJAR); break;
-		case IC_Cs_MEJAR ... IC_Cs_SUSTAIN: SetCode( &icData, note_Cs, noteOffset, keycode - IC_Cs_MEJAR); break;
-		case IC_Dn_MEJAR ... IC_Dn_SUSTAIN: SetCode( &icData, note_Dn, noteOffset, keycode - IC_Dn_MEJAR); break;
-		case IC_Ds_MEJAR ... IC_Ds_SUSTAIN: SetCode( &icData, note_Ds, noteOffset, keycode - IC_Ds_MEJAR); break;
-		case IC_En_MEJAR ... IC_En_SUSTAIN: SetCode( &icData, note_En, noteOffset, keycode - IC_En_MEJAR); break;
-		case IC_Fn_MEJAR ... IC_Fn_SUSTAIN: SetCode( &icData, note_Fn, noteOffset, keycode - IC_Fn_MEJAR); break;
-		case IC_Fs_MEJAR ... IC_Fs_SUSTAIN: SetCode( &icData, note_Fs, noteOffset, keycode - IC_Fs_MEJAR); break;
-		case IC_Gn_MEJAR ... IC_Gn_SUSTAIN: SetCode( &icData, note_Gn, noteOffset, keycode - IC_Gn_MEJAR); break;
-		case IC_Gs_MEJAR ... IC_Gs_SUSTAIN: SetCode( &icData, note_Gs, noteOffset, keycode - IC_Gs_MEJAR); break;
-		case IC_An_MEJAR ... IC_An_SUSTAIN: SetCode( &icData, note_An, noteOffset, keycode - IC_An_MEJAR); break;
-		case IC_As_MEJAR ... IC_As_SUSTAIN: SetCode( &icData, note_As, noteOffset, keycode - IC_As_MEJAR); break;
-		case IC_Bn_MEJAR ... IC_Bn_SUSTAIN: SetCode( &icData, note_Bn, noteOffset, keycode - IC_Bn_MEJAR); break;
-		case IC_string01 ... IC_string06:   if(codeArray[keycode - IC_string01] != -1){ PlayNote( lowestNote + codeArray[keycode - IC_string01], midi_channel, record->event.pressed ); } break;
-		case IC_PLAY_CODE:                  PlayCode( codeNote, icCodeNoteOffset, codeArray, midi_channel, record );
-		// }}}
+		case IC_MUTE:                       midi_send_reset(&midi_device); break;
+		case IC_REVERSE:                    icData.reverse = record->event.pressed; break;
+		case IC_OCTAVE_UP:                  OffsetOctave( &icData,  1 ); break;
+		case IC_OCTAVE_DN:                  OffsetOctave( &icData, -1 ); break;
+		case IC_NOTE_UP:                    OffsetNote( &icData,  1 ); break;
+		case IC_NOTE_DN:                    OffsetNote( &icData, -1 ); break;
+		case IC_Cn_MEJAR ... IC_Cn_SUSTAIN: SetCode( &icData, note_Cn, keycode - IC_Cn_MEJAR); break;
+		case IC_Cs_MEJAR ... IC_Cs_SUSTAIN: SetCode( &icData, note_Cs, keycode - IC_Cs_MEJAR); break;
+		case IC_Dn_MEJAR ... IC_Dn_SUSTAIN: SetCode( &icData, note_Dn, keycode - IC_Dn_MEJAR); break;
+		case IC_Ds_MEJAR ... IC_Ds_SUSTAIN: SetCode( &icData, note_Ds, keycode - IC_Ds_MEJAR); break;
+		case IC_En_MEJAR ... IC_En_SUSTAIN: SetCode( &icData, note_En, keycode - IC_En_MEJAR); break;
+		case IC_Fn_MEJAR ... IC_Fn_SUSTAIN: SetCode( &icData, note_Fn, keycode - IC_Fn_MEJAR); break;
+		case IC_Fs_MEJAR ... IC_Fs_SUSTAIN: SetCode( &icData, note_Fs, keycode - IC_Fs_MEJAR); break;
+		case IC_Gn_MEJAR ... IC_Gn_SUSTAIN: SetCode( &icData, note_Gn, keycode - IC_Gn_MEJAR); break;
+		case IC_Gs_MEJAR ... IC_Gs_SUSTAIN: SetCode( &icData, note_Gs, keycode - IC_Gs_MEJAR); break;
+		case IC_An_MEJAR ... IC_An_SUSTAIN: SetCode( &icData, note_An, keycode - IC_An_MEJAR); break;
+		case IC_As_MEJAR ... IC_As_SUSTAIN: SetCode( &icData, note_As, keycode - IC_As_MEJAR); break;
+		case IC_Bn_MEJAR ... IC_Bn_SUSTAIN: SetCode( &icData, note_Bn, keycode - IC_Bn_MEJAR); break;
+		case IC_string01 ... IC_string06:   PlayStrings( &icData, keycode - IC_string01, icData.baseNote + icData.octaveOffset * 12 + 12 + icData.noteOffset, midi_channel, record); break;
+		case IC_PLAY_CODE:                  PlayCode( &icData, midi_channel, record ); break;
+		case IC_RESET:                      ResetIC();
 	}
 	return true;
 }

@@ -9,7 +9,7 @@ enum note { // n:ナチュラル s:シャープ b:フラット
 	note_Gn = 7, note_Gs = 8,
 	note_An = 9, note_As = 10,
 	note_Bn = 11,
-};       // 音 オクターブ-1相当 0=C ~ 11=B
+};
 
 enum codeType {
 	MEJAR = 0,          // 0 Mejar
@@ -23,50 +23,46 @@ enum codeType {
 	SUSTAIN             // 8 Sustain
 };
 
-enum codeBase {
-	CodeBase_C = 60, // とりあえずC4
-	CodeBase_D = 62,
-	CodeBase_E = 64,
-	CodeBase_F = 65,
-	CodeBase_G = 67,
-	CodeBase_A = 69,
-	CodeBase_B = 71,
-};
-
-// const uint8_tのsize=4の配列へのポインタが返る -1は鳴らさない
-// icCodeBase は コードの一番低い音のノート番号
-// icCodeType は Mejorとか
-const uint8_t* GetCodeArray(uint8_t icCodeBase, uint8_t icCodeType);
-
-// icCodeBaseを現在のオフセット量から+1or-1するだけの関数 // キーボードからのオフセット値は+1か-1だから
-// 要はC4からC5やC3にする
-void OffsetCodeBase(
-	IcData* icData,    // 設定
-	int diffOffset // オフセット値
-);
-
-// icDefineCode.cで定義 [codeType] で和音の4音へのオフセット値が入っている
-// -1は鳴らさない
-// 例 icCodeOffsetArray[0] -> { 0, 4, 7, -1 }, // Mejar
-extern const uint8_t icCodeOffsetArray[9][4];
-
 
 // memo : 普通ギターのCの6つの弦は E1, C2, E2, G2, C3, E3
+// uint8_t ic[9][6] = {
+//   { 0, 4, 7, 12, 16, 19 }, // 0 Mejar
+//   { 0, 3, 7, 12, 15, 19 }, // 1 Minor
+//   { 0, 4, 7, 10, 12, 16 }, // 2 Sevens
+//   { 0, 4, 7, 11, 12, 16 }, // 3 MejarSevens
+//   { 0, 3, 7, 10, 12, 15 }, // 4 MinorSevens
+//   { 0, 3, 7, 11, 12, 15 }, // 5 MinorMejorSevens
+//   { 0, 3, 6, 12, 15, 18 }, // 6 Diminish
+//   { 0, 4, 8, 12, 16, 20 }, // 7 Augument
+//   { 0, 5, 7, 12, 17, 19 }  // 8 Sustain
+// };
 
-struct IcData{
-	bool    reverse              = false;             // insta code の ~ 相当
-	uint8_t baseNote             = 0;                 // 音 icDefineCode.hのenum note
-	uint8_t octaveOffset         = 1;                 // オクターブオフセット  min=-1 max=9
-	uint8_t noteOffset           = 0;                 // 半音単位でのオフセット いわゆる変調
-	const uint8_t** icCodeOffset = icCodeOffsetArray; // icDefineCode.c で定義されている和音のそれぞれの音baseからのoffset配列へのポインタ
-};
+typedef struct {
+	char      reverse          ; // = false;             // insta code の ~ 相当
+	uint8_t   baseNote         ; // = 0;                 // 音 icDefineCode.hのenum note
+	int       octaveOffset     ; // = 1;                 // オクターブオフセット  min=-1 max=9
+	int       noteOffset       ; // = 0;                 // 半音単位でのオフセット いわゆる変調
+	uint8_t   codeType         ; // = 0;                 // Majorとか
+	uint8_t icCodeOffsetArray[9][6]; // = icCodeOffsetArray; // 和音のそれぞれの音baseからのoffset配列へのポインタ
+}IcData;
 
 // 和音を設定する
-void SetCode(
+extern void SetCode(
 	IcData* icData,      // 設定
 	uint8_t note,        // ドレミ icDefineCode.hのnote
-	uint8_t noteOffset,  // 半音単位でのオフセット いわゆる変調
 	uint8_t codeType     // Majorとかを表す数値
+);
+
+// icDataのoctaveOffsetを現在のオフセット量から+1or-1する
+// 要はC4からC5やC3にする
+extern void OffsetOctave(
+	IcData* icData,  // 設定
+	int octaveOffset   // オフセット値
+);
+// icDataのnoteOffsetを現在のオフセット量から+1or-1する
+extern void OffsetNote(
+	IcData* icData,    // 設定
+	int noteffset // オフセット値
 );
 
 
