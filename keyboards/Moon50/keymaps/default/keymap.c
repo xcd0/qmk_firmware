@@ -50,6 +50,7 @@ enum custom_keycodes {
 	MI_0019, MI_0020, MI_0021, MI_0022, MI_0023, MI_0024,
 	MI_0025, MI_0026, MI_0027, MI_0028, MI_0029, MI_0030,
 	MI_0031, MI_0032, MI_0033, MI_0034, MI_0035, MI_0036,
+	MI_UP, MI_DN,
 	MI_MAX,
 	IC_MIN,
 	IC_RESET,
@@ -85,8 +86,9 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-void keyboard_pre_init_user(void) { // Call the keyboard pre init code.
+void keyboard_post_init_user(void) { // Call the keyboard pre init code.
 	ResetIC();
+	debug_enable=true;
 }
 
 void ResetIC(void){
@@ -112,12 +114,12 @@ void ResetIC(void){
 	icData.codeType          = 0;                 // Majorとか
 
 	// icData.icCodeOffsetArrayのデバッグ
-	//for(int i = 0; i < 9; i++){
-	//	for(int j = 0; j < 6; j++){
-	//		uprintf("%u,", icData.icCodeOffsetArray[i][j]);
-	//	}
-	//	uprintf("\n");
-	//}
+	for(int i = 0; i < 9; i++){
+		for(int j = 0; j < 6; j++){
+			dprintf("%u,", icData.icCodeOffsetArray[i][j]);
+		}
+		dprintf("\n");
+	}
 }
 
 // 単音を鳴らす
@@ -127,7 +129,7 @@ void PlayNote(
 	bool    pressed       // キーが押されているか
 ){
 	if(note >= 0 && note <= 127){ midi_send_noteon(&midi_device, midi_channel, note, pressed ? 127 : 0); }
-	uprintf("n%u;", note);
+	dprintf("n%u;", note);
 }
 
 void PlayStrings(
@@ -137,7 +139,7 @@ void PlayStrings(
 	uint8_t      midi_channel, // midiのチャンネル
 	keyrecord_t* record        // キー入力状態
 ){
-	uprintf("s%d(o%d):", stringNum, icData->icCodeOffsetArray[icData->codeType][stringNum]);
+	dprintf("s%d(o%d):", stringNum, icData->icCodeOffsetArray[icData->codeType][stringNum]);
 	PlayNote( lowestNote + icData->icCodeOffsetArray[icData->codeType][stringNum], midi_channel, record->event.pressed );
 }
 
@@ -147,45 +149,45 @@ void PlayCode(
 	uint8_t      midi_channel, // midiのチャンネル
 	keyrecord_t* record        // キー入力状態
 ){
-	uprintf("bn%u,oo%d,no%d,ct%u,", icData->baseNote, icData->octaveOffset, icData->noteOffset, icData->codeType);
-	uprintf("(%u %u %u %u %u %u)"
-, icData->icCodeOffsetArray[icData->codeType][0]
-, icData->icCodeOffsetArray[icData->codeType][1]
-, icData->icCodeOffsetArray[icData->codeType][2]
-, icData->icCodeOffsetArray[icData->codeType][3]
-, icData->icCodeOffsetArray[icData->codeType][4]
-, icData->icCodeOffsetArray[icData->codeType][5]);
+	dprintf("bn%u,oo%d,no%d,ct%u,", icData->baseNote, icData->octaveOffset, icData->noteOffset, icData->codeType);
+	dprintf("(%u %u %u %u %u %u)"
+		, icData->icCodeOffsetArray[icData->codeType][0]
+		, icData->icCodeOffsetArray[icData->codeType][1]
+		, icData->icCodeOffsetArray[icData->codeType][2]
+		, icData->icCodeOffsetArray[icData->codeType][3]
+		, icData->icCodeOffsetArray[icData->codeType][4]
+		, icData->icCodeOffsetArray[icData->codeType][5]);
 	switch(icData->baseNote){
-		case note_Cn: uprintf("%s ", "Cn"); break;
-		case note_Cs: uprintf("%s ", "Cs"); break;
-		case note_Dn: uprintf("%s ", "Dn"); break;
-		case note_Ds: uprintf("%s ", "Ds"); break;
-		case note_En: uprintf("%s ", "En"); break;
-		case note_Fn: uprintf("%s ", "Fn"); break;
-		case note_Fs: uprintf("%s ", "Fs"); break;
-		case note_Gn: uprintf("%s ", "Gn"); break;
-		case note_Gs: uprintf("%s ", "Gs"); break;
-		case note_An: uprintf("%s ", "An"); break;
-		case note_As: uprintf("%s ", "As"); break;
-		case note_Bn: uprintf("%s ", "Bn"); break;
+		case note_Cn: dprintf("%s ", "Cn"); break;
+		case note_Cs: dprintf("%s ", "Cs"); break;
+		case note_Dn: dprintf("%s ", "Dn"); break;
+		case note_Ds: dprintf("%s ", "Ds"); break;
+		case note_En: dprintf("%s ", "En"); break;
+		case note_Fn: dprintf("%s ", "Fn"); break;
+		case note_Fs: dprintf("%s ", "Fs"); break;
+		case note_Gn: dprintf("%s ", "Gn"); break;
+		case note_Gs: dprintf("%s ", "Gs"); break;
+		case note_An: dprintf("%s ", "An"); break;
+		case note_As: dprintf("%s ", "As"); break;
+		case note_Bn: dprintf("%s ", "Bn"); break;
 	}
 
 	switch(icData->codeType){
-		case MEJAR: uprintf("%s ", "M"); break;
-		case MINOR: uprintf("%s ", "m"); break;
-		case SEVENS: uprintf("%s ", "7"); break;
-		case MEJARSEVENS: uprintf("%s ", "M7"); break;
-		case MINORSEVENS: uprintf("%s ", "m7"); break;
-		case MINORMEJORSEVENS: uprintf("%s ", "Mm7"); break;
-		case DIMINISH: uprintf("%s ", "dim"); break;
-		case AUGUMENT: uprintf("%s ", "aug"); break;
-		case SUSTAIN: uprintf("%s ", "sus"); break;
+		case MEJAR: dprintf("%s ", "M"); break;
+		case MINOR: dprintf("%s ", "m"); break;
+		case SEVENS: dprintf("%s ", "7"); break;
+		case MEJARSEVENS: dprintf("%s ", "M7"); break;
+		case MINORSEVENS: dprintf("%s ", "m7"); break;
+		case MINORMEJORSEVENS: dprintf("%s ", "Mm7"); break;
+		case DIMINISH: dprintf("%s ", "dim"); break;
+		case AUGUMENT: dprintf("%s ", "aug"); break;
+		case SUSTAIN: dprintf("%s ", "sus"); break;
 	}
 
 	for(uint8_t i = 0; i < 6; i++){
 		PlayStrings( icData, i, icData->baseNote + icData->octaveOffset * 12 + 12 + icData->noteOffset, midi_channel, record);
 	}
-	uprintf("\n");
+	dprintf("\n");
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -233,6 +235,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// }}}
 		//// MIDI {{{
 		// 参考 : https://rephtone.com/electronics/helix-midicustom/
+		case MI_UP: midiOffset += 12; break;
+		case MI_DN: midiOffset -= 12; break;
 		case MI_0001 ... MI_0036: // MIDI
 			if(tmpNoteNum >= 0 && tmpNoteNum <= 127){
 				midi_send_noteon(&midi_device, midi_channel, tmpNoteNum, record->event.pressed ? 127 : 0);
