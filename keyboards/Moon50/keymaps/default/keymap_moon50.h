@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        _______, XXXXXXX, JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
     ),
     [_ARROW] = LAYOUT(
-            XXXXXXX, XXXXXXX, DF(_IC),  XXXXXXX, DF(_YSTRP), DF(_QWERTY),           /**/                   XXXXXXX, XXXXXXX, JP_BTN1, JP_BTN2, JP_BTN3, JP_WH_U,    \
+            DEBUG,   XXXXXXX, DF(_IC),  XXXXXXX, DF(_YSTRP), DF(_QWERTY),           /**/                   XXXXXXX, XXXXXXX, JP_BTN1, JP_BTN2, JP_BTN3, JP_WH_U,    \
             XXXXXXX, XXXXXXX, DF(_MIDI),XXXXXXX, DF(IC),  DF(MIDI),                 /**/                   XXXXXXX, JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, XXXXXXX,    \
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_TAB,  JP_ESC,  /**/ JP_LGUI, JP_LALT, XXXXXXX, JP_MS_L, JP_MS_D, JP_MS_U, JP_MS_R, JP_WH_D,    \
                                        XXXXXXX, XXXXXXX, JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  _______, JP_BSPC, JP_ENT,  JP_DEL                                 \
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MIDI] = LAYOUT(
             MI_0001, MI_0004, MI_0007, MI_0010, MI_0013, MI_0016,                    /**/                     MI_0029, MI_0022, MI_0025, MI_0028, MI_0031, MI_0034,      \
             MI_0002, MI_0005, MI_0008, MI_0011, MI_0014, MI_0017,                    /**/                     MI_0020, MI_0023, MI_0026, MI_0029, MI_0032, MI_0035,      \
-            MI_0003, MI_0006, MI_0009, MI_0012, MI_0015, MI_0018, XXXXXXX,  XXXXXXX, /**/ DF(_QWERTY), XXXXXXX, MI_0021, MI_0024, MI_0027, MI_0030, MI_0033, MI_0036,      \
+            MI_0003, MI_0006, MI_0009, MI_0012, MI_0015, MI_0018, MI_DN,   MI_UP,    /**/ DF(_QWERTY), XXXXXXX, MI_0021, MI_0024, MI_0027, MI_0030, MI_0033, MI_0036,      \
                                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  /**/     XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX                                 \
     ),
 	// IC_MUTE, IC_REVERSE,
