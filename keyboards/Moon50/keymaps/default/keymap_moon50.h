@@ -26,13 +26,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYMBOL] = LAYOUT(
             JP_TILD, JP_UNDS, JP_DQT,  JP_QUOT, JP_GRV,  JP_ESC,                    /**/                   JP_LALT, JP_LPRN, JP_LT,   JP_LCBR, JP_LBRC, JP_AT,      \
             JP_PLUS, JP_MINS, JP_ASTR, JP_EQL,  JP_DLR,  JP_TAB,                    /**/                   XXXXXXX, JP_RPRN, JP_GT,   JP_RCBR, JP_RBRC, JP_COLN,    \
-            XXXXXXX, JP_EXLM, JP_QUES, JP_HASH, JP_PERC, JP_LGUI, JP_TAB,  JP_ESC,  /**/ JP_LGUI, JP_LALT, XXXXXXX, XXXXXXX, JP_AMPR, JP_PIPE, JP_CIRC, JP_BKSL,    \
+            RESET,   JP_EXLM, JP_QUES, JP_HASH, JP_PERC, JP_LGUI, JP_TAB,  JP_ESC,  /**/ JP_LGUI, JP_LALT, XXXXXXX, XXXXXXX, JP_AMPR, JP_PIPE, JP_CIRC, JP_BKSL,    \
                                        XXXXXXX, _______, JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
     ),
     [_NUMBER] = LAYOUT(
             JP_F1,   JP_F2,   JP_F3,   JP_F4,   JP_F5,   JP_F6,                     /**/                   JP_SLSH, JP_ASTR, JP_7,    JP_8,    JP_9,    XXXXXXX,    \
             JP_F7,   JP_F8,   JP_F9,   JP_F10,  JP_F11,  JP_F12,                    /**/                   JP_MINS, JP_PLUS, JP_4,    JP_5,    JP_6,    XXXXXXX,    \
-            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_TAB,  JP_ESC,  /**/ JP_LGUI, JP_LALT, JP_EQL,  JP_0,    JP_1,    JP_2,    JP_3,    JP_DOT,     \
+            RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_TAB,  JP_ESC,  /**/ JP_LGUI, JP_LALT, JP_EQL,  JP_0,    JP_1,    JP_2,    JP_3,    JP_DOT,     \
                                        _______, XXXXXXX, JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
     ),
     [_ARROW] = LAYOUT(
@@ -61,24 +61,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  /**/     XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX                                 \
     ),
 	// IC_MUTE, IC_REVERSE,
-	// IC_Cn_MAJOR, IC_Cn_MINOR, IC_Cn_7, IC_Cn_MAJOR7, IC_Cn_MINOR7, IC_Cn_MINORMEJOR7, IC_Cn_DIMINISH, IC_Cn_AUGUMENT, IC_Cn_SUSTAIN,
-	// IC_Cs_MAJOR, IC_Cs_MINOR, IC_Cs_7, IC_Cs_MAJOR7, IC_Cs_MINOR7, IC_Cs_MINORMEJOR7, IC_Cs_DIMINISH, IC_Cs_AUGUMENT, IC_Cs_SUSTAIN,
-	// IC_Dn_MAJOR, IC_Dn_MINOR, IC_Dn_7, IC_Dn_MAJOR7, IC_Dn_MINOR7, IC_Dn_MINORMEJOR7, IC_Dn_DIMINISH, IC_Dn_AUGUMENT, IC_Dn_SUSTAIN,
-	// IC_Ds_MAJOR, IC_Ds_MINOR, IC_Ds_7, IC_Ds_MAJOR7, IC_Ds_MINOR7, IC_Ds_MINORMEJOR7, IC_Ds_DIMINISH, IC_Ds_AUGUMENT, IC_Ds_SUSTAIN,
-	// IC_En_MAJOR, IC_En_MINOR, IC_En_7, IC_En_MAJOR7, IC_En_MINOR7, IC_En_MINORMEJOR7, IC_En_DIMINISH, IC_En_AUGUMENT, IC_En_SUSTAIN,
-	// IC_Fn_MAJOR, IC_Fn_MINOR, IC_Fn_7, IC_Fn_MAJOR7, IC_Fn_MINOR7, IC_Fn_MINORMEJOR7, IC_Fn_DIMINISH, IC_Fn_AUGUMENT, IC_Fn_SUSTAIN,
-	// IC_Fs_MAJOR, IC_Fs_MINOR, IC_Fs_7, IC_Fs_MAJOR7, IC_Fs_MINOR7, IC_Fs_MINORMEJOR7, IC_Fs_DIMINISH, IC_Fs_AUGUMENT, IC_Fs_SUSTAIN,
-	// IC_Gn_MAJOR, IC_Gn_MINOR, IC_Gn_7, IC_Gn_MAJOR7, IC_Gn_MINOR7, IC_Gn_MINORMEJOR7, IC_Gn_DIMINISH, IC_Gn_AUGUMENT, IC_Gn_SUSTAIN,
-	// IC_Gs_MAJOR, IC_Gs_MINOR, IC_Gs_7, IC_Gs_MAJOR7, IC_Gs_MINOR7, IC_Gs_MINORMEJOR7, IC_Gs_DIMINISH, IC_Gs_AUGUMENT, IC_Gs_SUSTAIN,
-	// IC_An_MAJOR, IC_An_MINOR, IC_An_7, IC_An_MAJOR7, IC_An_MINOR7, IC_An_MINORMEJOR7, IC_An_DIMINISH, IC_An_AUGUMENT, IC_An_SUSTAIN,
-	// IC_As_MAJOR, IC_As_MINOR, IC_As_7, IC_As_MAJOR7, IC_As_MINOR7, IC_As_MINORMEJOR7, IC_As_DIMINISH, IC_As_AUGUMENT, IC_As_SUSTAIN,
-	// IC_Bn_MAJOR, IC_Bn_MINOR, IC_Bn_7, IC_Bn_MAJOR7, IC_Bn_MINOR7, IC_Bn_MINORMEJOR7, IC_Bn_DIMINISH, IC_Bn_AUGUMENT, IC_Bn_SUSTAIN,
-	// IC_MAJOR, IC_MINOR, IC_SEVENS, IC_MAJORSEVENS, IC_MINORSEVENS, IC_MINORMEJORSEVENS, IC_DIMINISH, IC_AUGUMENT, IC_SUSTAIN,
+	// IC_Cn_MAJOR, IC_Cn_MINOR, // IC_Cs_MAJOR, IC_Cs_MINOR, // IC_Dn_MAJOR, IC_Dn_MINOR, // IC_Ds_MAJOR, IC_Ds_MINOR
+	// IC_En_MAJOR, IC_En_MINOR, // IC_Fn_MAJOR, IC_Fn_MINOR, // IC_Fs_MAJOR, IC_Fs_MINOR, // IC_Gn_MAJOR, IC_Gn_MINOR
+	// IC_Gs_MAJOR, IC_Gs_MINOR, // IC_An_MAJOR, IC_An_MINOR, // IC_As_MAJOR, IC_As_MINOR, // IC_Bn_MAJOR, IC_Bn_MINOR
+	// IC_7th, IC_9th,IC_M7, IC_dim, IC_aug, IC_sus4, IC_m7sub5, IC_REVERSE, IC_SHARP,
     [_IC] = LAYOUT(
-            IC_MINORSEVENS, IC_Bn_MINOR, IC_Ds_MAJOR, IC_As_MAJOR, IC_SEVENS,  IC_MAJORSEVENS,                           /**/                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
-            IC_SHARP,       IC_Fn_MAJOR, IC_Gn_MAJOR, IC_An_MINOR, IC_REVERSE, IC_SUSTAIN,                               /**/                   XXXXXXX, IC_string01, IC_string03, IC_string05, XXXXXXX, XXXXXXX,    \
-            IC_DIMINISH,    IC_Cn_MAJOR, IC_Dn_MINOR, IC_En_MINOR, XXXXXXX,    IC_AUGUMENT,  IC_OCTAVE_DN, IC_OCTAVE_UP, /**/ DF(_QWERTY), XXXXXXX, XXXXXXX, IC_string02, IC_string04, IC_string06, XXXXXXX, XXXXXXX,    \
-                                                         IC_RESET, IC_MUTE,    IC_PLAY_CODE, IC_NOTE_DN,   IC_NOTE_UP,   /**/     XXXXXXX, XXXXXXX, IC_PLAY_CODE, IC_MUTE, XXXXXXX                                \
+            IC_m7sub5, IC_Bn_MINOR, IC_Ds_MAJOR, IC_As_MAJOR, IC_7th,     IC_M7,                               /**/                       IC_key01, IC_key04, IC_key07, IC_key10, IC_key13, IC_key16, \
+            IC_SHARP,  IC_Fn_MAJOR, IC_Gn_MAJOR, IC_An_MINOR, IC_REVERSE, IC_sus4,                             /**/                       IC_key02, IC_key05, IC_key08, IC_key11, IC_key14, IC_key17, \
+            IC_dim,    IC_Cn_MAJOR, IC_Dn_MINOR, IC_En_MINOR, IC_9th,     IC_aug,  IC_OCTAVE_DN, IC_OCTAVE_UP, /**/ DF(_QWERTY), XXXXXXX, IC_key03, IC_key06, IC_key09, IC_key12, IC_key15, IC_key18, \
+                                                    IC_RESET, IC_MUTE,  IC_PLAY_CODE, IC_NOTE_DN, IC_NOTE_UP,  /**/ IC_string01, IC_string02, IC_string03, IC_string04, IC_string05                   \
     )
 };
 
