@@ -33,7 +33,8 @@ enum layer_names {
 	_ARROW,
 	_YSTRP,  // 独自キー配列YSTRP
 	_MIDI,   // 普通にMIDIのキーボード
-	_IC      // インスタコード風キーボード
+	_IC,     // インスタコード風キーボード
+	_FF      // ff14用
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -45,6 +46,7 @@ enum custom_keycodes {
 	ARROW,
 	MIDI,
 	IC,
+	FF,
 	MI_MIN,
 	MI_0001 = MI_MIN, MI_0002, MI_0003, MI_0004, MI_0005, MI_0006,
 	MI_0007, MI_0008, MI_0009, MI_0010, MI_0011, MI_0012,
@@ -293,13 +295,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
 			case IC_Cn_MAJOR ... IC_Cn_MINOR: SetCode( &icData, note_Cn, keycode - IC_Cn_MAJOR); UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_Cn_MAJOR ); break;
 			case IC_Cs_MAJOR ... IC_Cs_MINOR: SetCode( &icData, note_Cs, keycode - IC_Cs_MAJOR); UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_Cs_MAJOR ); break;
 			case IC_Dn_MAJOR ... IC_Dn_MINOR:
-	PrintStatus(&icData);
-	dprintf("sub%d\n", keycode - IC_Dn_MAJOR);
-											  SetCode( &icData, note_Dn, keycode - IC_Dn_MAJOR);
-	PrintStatus(&icData);
-											  UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_Dn_MAJOR );
-	PrintStatus(&icData);
-											  break;
+				PrintStatus(&icData);
+				dprintf("sub%d\n", keycode - IC_Dn_MAJOR);
+				SetCode( &icData, note_Dn, keycode - IC_Dn_MAJOR);
+				PrintStatus(&icData);
+				UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_Dn_MAJOR );
+				PrintStatus(&icData);
+				break;
 			case IC_Ds_MAJOR ... IC_Ds_MINOR: SetCode( &icData, note_Ds, keycode - IC_Ds_MAJOR); UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_Ds_MAJOR ); break;
 			case IC_En_MAJOR ... IC_En_MINOR: SetCode( &icData, note_En, keycode - IC_En_MAJOR); UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_En_MAJOR ); break;
 			case IC_Fn_MAJOR ... IC_Fn_MINOR: SetCode( &icData, note_Fn, keycode - IC_Fn_MAJOR); UpdateStatus( &icData, record->event.pressed, &icData.codeStatus, keycode - IC_Fn_MAJOR ); break;

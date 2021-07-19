@@ -20,8 +20,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
             JP_Q,    JP_W,    JP_E,    JP_R,    JP_T,    JP_ESC,                    /**/                      JP_LALT, JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,       \
             JP_A,    JP_S,    JP_D,    JP_F,    JP_G,    JP_TAB,                    /**/                      XXXXXXX, JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN,    \
-            JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,    JP_LGUI, JP_MHEN, JP_HOME, /**/ JP_END,  JP_HENK,    XXXXXXX,  JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
-                              TT(_NUMBER),  TT(_SYMBOL), JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
+            JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,    JP_MHEN, JP_INS,   JP_HOME, /**/ JP_END,  JP_LGUI,    JP_HENK,  JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
+                              TT(_NUMBER),  TT(_SYMBOL), JP_SPC,  JP_LSFT, JP_LCTL, /**/ XXXXXXX,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
     ),
     [_SYMBOL] = LAYOUT(
             JP_TILD, JP_UNDS, JP_DQT,  JP_QUOT, JP_GRV,  JP_ESC,                    /**/                   JP_LALT, JP_LPRN, JP_LT,   JP_LCBR, JP_LBRC, JP_AT,      \
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ARROW] = LAYOUT(
             DEBUG,   XXXXXXX, DF(_IC),  XXXXXXX, DF(_YSTRP), DF(_QWERTY),           /**/                   XXXXXXX, XXXXXXX, JP_BTN1, JP_BTN2, JP_BTN3, JP_WH_U,    \
-            XXXXXXX, XXXXXXX, DF(_MIDI),XXXXXXX, DF(IC),  DF(MIDI),                 /**/                   XXXXXXX, JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, XXXXXXX,    \
+            XXXXXXX, XXXXXXX, DF(_MIDI),XXXXXXX, XXXXXXX, DF(_FF),                  /**/                   XXXXXXX, JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, XXXXXXX,    \
             RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_TAB,  JP_ESC,  /**/ JP_LGUI, JP_LALT, XXXXXXX, JP_MS_L, JP_MS_D, JP_MS_U, JP_MS_R, JP_WH_D,    \
                                        XXXXXXX, XXXXXXX, JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  _______, JP_BSPC, JP_ENT,  JP_DEL                                 \
     ),
@@ -46,6 +46,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             JP_A,    JP_O,    JP_E,    JP_U,    JP_I,    JP_TAB,                    /**/                      XXXXXXX, JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN,    \
             JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,    JP_LGUI, JP_MHEN, JP_HOME, /**/ JP_END,  JP_HENK,    XXXXXXX, JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
                               TT(_NUMBER),  TT(_SYMBOL), JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
+    ),
+	// 左手用デバイスとして振る舞うつもり といっても右手も使える
+	// 割り当てないキー
+	// JP_LGUI JP_HOME JP_END
+	// TT(_NUMBER) TT(_SYMBOL)
+    [_FF] = LAYOUT(
+            JP_Q,    JP_W,    JP_E,    JP_R,   JP_T,    JP_LPRN,                   /**/                      JP_RPRN, JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,       \
+            JP_A,    JP_S,    JP_D,    JP_F,   JP_G,    JP_LCBR,                   /**/                      JP_RCBR, JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN,    \
+            JP_Z,    JP_X,    JP_C,    JP_V,   JP_B,    JP_LBRC, JP_MHEN, JP_ESC,  /**/ DF(_QWERTY),  JP_HENK,    JP_RBRC,  JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
+                                       JP_SPC, JP_LALT, JP_LCTL, JP_LSFT, JP_TAB,  /**/ XXXXXXX,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
     ),
 	// こうしたい
 	//  2eb, 2gb, 2a,  3c,  3eb, 3gb,    3a,  4c,  4eb, 4gb, 4a,  5c,
