@@ -20,8 +20,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
             JP_Q,    JP_W,    JP_E,    JP_R,    JP_T,    JP_ESC,                    /**/                      JP_LALT, JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,       \
             JP_A,    JP_S,    JP_D,    JP_F,    JP_G,    JP_TAB,                    /**/                      XXXXXXX, JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN,    \
-            JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,    JP_MHEN, JP_INS,   JP_HOME, /**/ JP_END,  JP_LGUI,    JP_HENK,  JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,    \
-                              TT(_NUMBER),  TT(_SYMBOL), JP_SPC,  JP_LSFT, JP_LCTL, /**/ DF(_FF),  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
+            JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,    JP_MHEN, JP_INS,  JP_HOME, /**/ JP_END,  JP_LGUI,    JP_HENK,  JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH,   \
+                              TT(_NUMBER),  TT(_SYMBOL), JP_SPC,  JP_LSFT, JP_LCTL, /**/ JP_INS,  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                                 \
+                              //TT(_NUMBER),  TT(_SYMBOL), JP_SPC,  JP_LSFT, JP_LCTL, /**/ DF(_FF),  TT(_ARROW), JP_BSPC, JP_ENT,  JP_DEL                              \
     ),
     [_SYMBOL] = LAYOUT(
             JP_TILD, JP_UNDS, JP_DQT,  JP_QUOT, JP_GRV,  JP_ESC,                    /**/                   JP_LALT, JP_LPRN, JP_LT,   JP_LCBR, JP_LBRC, JP_AT,      \

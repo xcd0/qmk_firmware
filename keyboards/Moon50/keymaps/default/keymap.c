@@ -84,7 +84,7 @@ enum custom_keycodes {
 	IC_MAX
 };
 
-#include "keymap_moon50.h"
+#include "moon50.h"
 extern MidiDevice midi_device;
 uint8_t midi_channel = 0;  // MIDIのチャンネル
 uint8_t midiOffset = 39;   // MI_0_001を39(D#2)にする
